@@ -1,6 +1,6 @@
 package com.elderstudios.controller;
 
-import com.elderstudios.domain.GuestBookEntry;
+import com.elderstudios.domain.assignment;
 import com.elderstudios.service.GuestBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ public class HelloController {
 	public String displayGuestbook( Model model ) {
 
 		model.addAttribute(ENTRIES_KEY, guestBookService.findAll());
-		model.addAttribute(FORM_KEY, new GuestBookEntry());
+		model.addAttribute(FORM_KEY, new assignment());
 
 		return GUESTBOOK_FORM;
 	}
@@ -32,7 +32,7 @@ public class HelloController {
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public String changeGuestbook(
 			Model model,
-			@Valid @ModelAttribute(FORM_KEY) GuestBookEntry form,
+			@Valid @ModelAttribute(FORM_KEY) assignment form,
 			BindingResult bindingResult ) {
 
 		if ( bindingResult.hasErrors() ) {
@@ -62,7 +62,7 @@ public class HelloController {
 	@RequestMapping (value="/edit/{id}", method = RequestMethod.POST)
 	public String editSaveGuestBook (Model model,
 									 @PathVariable Long id,
-									 @Valid @ModelAttribute(FORM_KEY) GuestBookEntry form,
+									 @Valid @ModelAttribute(FORM_KEY) assignment form,
 									 BindingResult bindingResult ) {
 
 		if ( bindingResult.hasErrors() ) {
@@ -70,8 +70,10 @@ public class HelloController {
 			return GUESTBOOK_FORM;
 		}
 
-		GuestBookEntry existing = guestBookService.findOne (id);
-		existing.setName (form.getName());
+		assignment existing = guestBookService.findOne (id);
+		existing.setMake (form.getMake());
+		existing.setModel (form.getModel());
+		existing.setYear (form.getYear());
 		existing.setComment(form.getComment());
 		guestBookService.save (existing);
 

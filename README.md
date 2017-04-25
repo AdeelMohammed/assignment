@@ -1,5 +1,6 @@
-Spring Framework Guestbook
+Spring Framework ASSIGNMENT
 --------------------------
+assignment 
 
 To compile and run this example, first install maven
 

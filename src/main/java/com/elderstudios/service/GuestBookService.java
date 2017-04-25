@@ -1,7 +1,7 @@
 package com.elderstudios.service;
 
-import com.elderstudios.domain.GuestBookEntry;
-import com.elderstudios.domain.GuestBookEntryRepository;
+import com.elderstudios.domain.assignment;
+import com.elderstudios.domain.AssignmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,21 +11,21 @@ import java.util.List;
 public class GuestBookService {
 
     @Autowired
-    protected GuestBookEntryRepository guestBookEntryRepository;
+    protected AssignmentRepository assignmentRepository;
 
-    public List<GuestBookEntry> findAll() {
-        return guestBookEntryRepository.findAll();
+    public List<assignment> findAll() {
+        return assignmentRepository.findAll();
     }
 
-    public GuestBookEntry save(GuestBookEntry entry) {
-        return guestBookEntryRepository.save(entry);
+    public assignment save(assignment entry) {
+        return assignmentRepository.save(entry);
     }
 
     public void delete(Long id) {
-        guestBookEntryRepository.delete(id);
+        assignmentRepository.delete(id);
     }
 
-    public GuestBookEntry findOne(Long id) {
-        return guestBookEntryRepository.findOne(id);
+    public assignment findOne(Long id) {
+        return assignmentRepository.findOne(id);
     }
 }
