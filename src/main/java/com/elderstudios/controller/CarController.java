@@ -1,7 +1,7 @@
 package com.elderstudios.controller;
 
 import com.elderstudios.domain.assignment;
-import com.elderstudios.service.GuestBookService;
+import com.elderstudios.service.AssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,22 +18,23 @@ import org.springframework.stereotype.Component;
 import javax.validation.Valid;
 
 @Controller
-public class HelloController {
+public class CarController {
 
 	@Autowired
-	protected GuestBookService guestBookService;
+	protected AssignmentService assignmentService;
 
-	private static final String GUESTBOOK_FORM = "guestbook";
+	private static final String assignment_FORM = "assignment";
 	private static final String ENTRIES_KEY = "entries";
 	private static final String FORM_KEY = "form";
 
-        private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
+    private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
 
-        private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-	public HelloController()
+
+	public CarController()
     {
-        reportCurrentTime();
+
     }
 
     @Scheduled(fixedRate = 5000)
@@ -43,26 +44,26 @@ public class HelloController {
 
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String displayGuestbook( Model model ) {
+	public String displayassignment( Model model ) {
 
-		model.addAttribute(ENTRIES_KEY, guestBookService.findAll());
+		model.addAttribute(ENTRIES_KEY, assignmentService.findAll());
 		model.addAttribute(FORM_KEY, new assignment());
 
-		return GUESTBOOK_FORM;
+		return assignment_FORM;
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public String changeGuestbook(
+	public String changeassignment(
 			Model model,
 			@Valid @ModelAttribute(FORM_KEY) assignment form,
 			BindingResult bindingResult ) {
 
 		if ( bindingResult.hasErrors() ) {
-			model.addAttribute(ENTRIES_KEY, guestBookService.findAll());
-			return GUESTBOOK_FORM;
+			model.addAttribute(ENTRIES_KEY, assignmentService.findAll());
+			return assignment_FORM;
 		}
 
-		guestBookService.save(form);
+		assignmentService.save(form);
 
 		return "redirect:/";
 	}
@@ -70,34 +71,34 @@ public class HelloController {
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.POST)
 	public String deleteEntry (Model model, @PathVariable Long id) {
 
-		guestBookService.delete (id);
+		assignmentService.delete (id);
 
 		return "redirect:/";
 	}
 
 	@RequestMapping (value="/edit/{id}", method = RequestMethod.GET)
 	public String editEntry (Model model, @PathVariable Long id) {
-		model.addAttribute (FORM_KEY, guestBookService.findOne (id));
-		return GUESTBOOK_FORM;
+		model.addAttribute (FORM_KEY, assignmentService.findOne (id));
+		return assignment_FORM;
 	}
 
 	@RequestMapping (value="/edit/{id}", method = RequestMethod.POST)
-	public String editSaveGuestBook (Model model,
+	public String editSaveassignment (Model model,
 									 @PathVariable Long id,
 									 @Valid @ModelAttribute(FORM_KEY) assignment form,
 									 BindingResult bindingResult ) {
 
 		if ( bindingResult.hasErrors() ) {
-			model.addAttribute(ENTRIES_KEY, guestBookService.findAll());
-			return GUESTBOOK_FORM;
+			model.addAttribute(ENTRIES_KEY, assignmentService.findAll());
+			return assignment_FORM;
 		}
 
-		assignment existing = guestBookService.findOne (id);
+		assignment existing = assignmentService.findOne (id);
 		existing.setMake (form.getMake());
 		existing.setModel (form.getModel());
 		existing.setYear (form.getYear());
 		existing.setComment(form.getComment());
-		guestBookService.save (existing);
+		assignmentService.save (existing);
 
 		return "redirect:/";
 	}
