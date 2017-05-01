@@ -4,9 +4,17 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -17,13 +25,16 @@ public class assignment {
     @Column(name = "id")
     private Long id;
 
-    @NotEmpty
+    @NotNull
+    @Size(min=2, max=30)
+
     private String make;
 
     @NotEmpty
     private String model;
 
     @NotEmpty
+    @Min(2010)
     private String year;
 
     @NotEmpty
