@@ -3,10 +3,10 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.elderstudios</groupId>
-    <artifactId>guestbook</artifactId>
+    <artifactId>Assignment</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
-    <name>A Guestbook example written in Spring framework</name>
+    <name>A Assignment example written in Spring framework</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
